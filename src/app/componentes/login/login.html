@@ -1,0 +1,31 @@
+<div class="login-container">
+  <h2>Iniciar Sesión</h2>
+  
+  <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
+    <div>
+      <label>Correo o Nombre de usuario</label>
+      <input type="text" formControlName="identificador"
+      [class.input-error]="esCampoInvalido('identificador')">
+      
+      @if (esCampoInvalido("identificador")) {
+        <small>Este campo es obligatorio.</small>
+      }
+    </div>
+
+    <div>
+      <label>Contraseña</label>
+      <input type="password" formControlName="password"
+      [class.input-error]="esCampoInvalido('password')">
+      
+
+      @if (esCampoInvalido("password")) {
+        <small>Este campo es obligatorio.</small>
+      }
+      @if (campo['password'].touched && campo['password'].errors?.['pattern']) {
+        <small>Debe tener al menos 8 caracteres, una mayúscula y un número.</small>
+      }
+    </div>
+
+    <button type="submit">Ingresar</button>
+  </form>
+</div>

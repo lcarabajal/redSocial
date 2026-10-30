@@ -1,1 +1,145 @@
-/* You can add global styles to this file, and also import other style files */
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
+
+:root {
+  /* Paleta Moderna: Morado y Rojo */
+  --primary-purple: #7c3aed;
+  --primary-purple-hover: #6d28d9;
+  --secondary-red: #e11d48;
+  --brand-gradient: linear-gradient(135deg, var(--primary-purple) 0%, var(--secondary-red) 100%);
+  
+  /* Fondos Oscuros */
+  --bg-dark: #0f172a;
+  --surface-dark: #1e293b;
+  --input-bg: #0f172a;
+  
+  /* Texto */
+  --text-main: #f8fafc;
+  --text-muted: #94a3b8;
+  --error-text: #f87171;
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: 'Inter', sans-serif;
+  background-color: var(--bg-dark);
+  color: var(--text-main);
+  min-height: 100vh;
+}
+
+/* Estilo global para botones */
+button {
+  background: var(--brand-gradient);
+  color: white;
+  border: none;
+  border-radius: 8px;
+  padding: 12px 24px;
+  font-size: 16px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  width: 100%;
+}
+
+button:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(124, 58, 237, 0.4);
+}
+
+button:active {
+  transform: translateY(0);
+}
+
+/* Estilo global para inputs */
+input, textarea, select {
+  width: 100%;
+  background-color: var(--input-bg);
+  border: 1px solid #334155;
+  color: var(--text-main);
+  padding: 12px 16px;
+  border-radius: 8px;
+  font-size: 14px;
+  transition: border-color 0.3s ease, box-shadow 0.3s ease;
+  outline: none;
+}
+
+input:focus, textarea:focus {
+  border-color: var(--primary-purple);
+  box-shadow: 0 0 0 2px rgba(124, 58, 237, 0.2);
+}
+
+input[type="file"] {
+  padding: 8px;
+  background-color: transparent;
+  border: 1px dashed #334155;
+}
+
+small {
+  color: var(--error-text);
+  font-size: 12px;
+  margin-top: 4px;
+  display: block;
+}
+
+/* Aca dejo mis componentes para que ya esten bien lindos */
+.login-container, .registro-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  padding: 2rem;
+}
+
+form {
+  background-color: var(--surface-dark);
+  padding: 2.5rem;
+  border-radius: 16px;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.5);
+  width: 100%;
+  max-width: 450px;
+  border: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.registro-container form {
+  max-width: 600px; /* El registro necesita más espacio */
+}
+
+h2 {
+  text-align: center;
+  margin-bottom: 2rem;
+  font-size: 24px;
+  font-weight: 700;
+  /* Texto con degradado */
+  background: var(--brand-gradient);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+form > div {
+  margin-bottom: 1.25rem;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+/* Para los campos de Nombre y Apellido que van en la misma línea */
+.row-inputs {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1rem;
+}
+
+label {
+  font-size: 14px;
+  font-weight: 500;
+  color: var(--text-muted);
+}
+
+input.input-error {
+  border-color: #f87171;
+}

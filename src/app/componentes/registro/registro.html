@@ -1,0 +1,88 @@
+<div class="registro-container">
+  <h2>Crear Cuenta</h2>
+  
+  <form [formGroup]="registroForm" (ngSubmit)="onSubmit()">
+    
+    <div class="row-inputs">
+      <div>
+        <label>Nombre</label>
+        <input type="text" formControlName="nombre" placeholder="Tu nombre"
+        [class.input-error]="esCampoInvalido('nombre')">
+        @if (esCampoInvalido('nombre')) {
+          <small>El nombre es obligatorio.</small>
+        }
+      </div>
+      <div>
+        <label>Apellido</label>
+        <input type="text" formControlName="apellido" placeholder="Tu apellido"
+        [class.input-error]="esCampoInvalido('apellido')">
+        @if (esCampoInvalido('apellido')) {
+          <small>El apellido es obligatorio.</small>
+        }
+      </div>
+    </div>
+
+    <div>
+      <label>Correo electrónico</label>
+      <input type="email" formControlName="correo" placeholder="ejemplo@correo.com"
+      [class.input-error]="esCampoInvalido('correo')">
+      @if (esCampoInvalido('correo')) {
+        <small>Ingrese un correo válido.</small>
+      }
+    </div>
+
+    <div>
+      <label>Nombre de usuario</label>
+      <input type="text" formControlName="username" placeholder="Usuario"
+      [class.input-error]="esCampoInvalido('username')">
+      @if (esCampoInvalido('username')) {
+        <small>El nombre de usuario es obligatorio.</small>
+      }
+    </div>
+
+    <div>
+      <label>Contraseña</label>
+      <input type="password" formControlName="password" placeholder="Contraseña"
+      [class.input-error]="esCampoInvalido('password')">
+      @if (esCampoInvalido('password')) {
+        <small>La contraseña es obligatoria.</small>
+      }
+      @if (campo['password'].touched && campo['password'].errors?.['pattern']) {
+        <small>Debe tener 8 caracteres, 1 mayúscula y 1 número.</small>
+      }
+    </div>
+    
+    <div>
+      <label>Repetir contraseña</label>
+      <input type="password" formControlName="repetirPassword" placeholder="Repetir contraseña"
+      [class.input-error]="registroForm.errors?.['mismatch'] && campo['repetirPassword'].touched">
+      @if (registroForm.errors?.['mismatch'] && campo['repetirPassword'].touched) {
+        <small>Las contraseñas no coinciden.</small>
+      }
+    </div>
+
+    <div>
+      <label>Fecha de nacimiento</label>
+      <input type="date" formControlName="fechaNacimiento"
+      [class.input-error]="esCampoInvalido('fechaNacimiento')">
+      @if (esCampoInvalido('fechaNacimiento')) {
+        <small>La fecha de nacimiento es obligatoria.</small>
+      }
+    </div>
+
+    <div>
+      <label>Descripción breve</label>
+      <textarea formControlName="descripcion" placeholder="Cuéntanos un poco sobre ti..."></textarea>
+    </div>
+
+    <div>
+      <label>Imagen de perfil</label>
+      <input type="file" accept="image/*" (change)="onFileSelected($event)">
+      @if (!archivoImagen && registroForm.touched) {
+        <small>La imagen de perfil es obligatoria.</small>
+      }
+    </div>
+
+    <button type="submit">Registrarse</button>
+  </form>
+</div>
