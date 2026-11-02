@@ -1,1 +1,53 @@
-<p>publicaciones works!</p>
+
+<div class="feed-container">
+  <h2>Inicio</h2>
+  <div class="feed-controls">
+    <div class="acciones-superiores">
+      <select (change)="cambiarOrden($event)" [value]="orden">
+        <option value="fecha">Más recientes</option>
+        <option value="likes">Más me gusta</option>
+      </select>
+      <button class="btn-nueva" (click)="abrirModal()">+ Nueva Publicación</button>
+    </div>
+  </div>
+
+  @if (mostrarModal) {
+    <div class="modal-backdrop" (click)="cerrarModal()">
+      <div class="modal-content card" (click)="$event.stopPropagation()">
+        <h3>Crear Publicación</h3>
+        <form [formGroup]="nuevaPubForm" (ngSubmit)="crearPublicacion()">
+          <textarea formControlName="texto" placeholder="¿Qué estás pensando?"></textarea>
+          
+          <input type="file" accept="image/*" (change)="onFileSelected($event)">
+          
+          <div class="acciones-form">
+            <button type="button" class="btn-cancelar" (click)="cerrarModal()">Cancelar</button>
+            <button type="submit" [disabled]="nuevaPubForm.invalid">Publicar</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  }
+
+  <br>
+  <br>
+
+  <div class="feed-lista">
+    @for (pub of publicaciones(); track pub._id) {
+      <app-publicacion 
+        [publicacion]="pub" 
+        [currentUserId]="currentUserId"
+        (onLike)="manejarLike($event)"
+        (onDelete)="manejarDelete($event)">
+      </app-publicacion>
+    } @empty {
+      <div class="empty-state">No hay publicaciones para mostrar.</div>
+    }
+  </div>
+
+  <div class="pagination">
+    <button (click)="cambiarPagina(-1)" [disabled]="paginaActual === 1">Anterior</button>
+    <span>Página {{ paginaActual }}</span>
+    <button (click)="cambiarPagina(1)">Siguiente</button> <!-- Añadir lógica para deshabilitar si no hay más -->
+  </div>
+</div>

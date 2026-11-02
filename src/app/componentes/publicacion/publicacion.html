@@ -1,0 +1,30 @@
+<app-sidebar></app-sidebar>
+<div class="post-card">
+  <div class="post-header">
+    <img [src]="publicacion.usuario.imagenPerfilUrl" alt="Avatar" class="avatar-small">
+    <div class="post-meta">
+      <strong>&#64;{{ publicacion.usuario.username }}</strong>
+      <small>{{ publicacion.fecha | date:'short' }}</small>
+    </div>
+    
+    @if (publicacion.usuario._id === currentUserId) {
+      <button class="btn-delete" (click)="eliminar()">🗑️ Eliminar</button>
+    }
+  </div>
+
+  <div class="post-body">
+    <p>{{ publicacion.texto }}</p>
+    
+    @if (publicacion.imagenUrl) {
+      <img [src]="publicacion.imagenUrl" alt="Imagen adjunta" class="post-imagen">
+    }
+  </div>
+
+  <br>
+
+  <div class="post-footer">
+    <button class="btn-like" [class.liked]="hasLiked" (click)="toggleLike()">
+      {{ hasLiked ? '❤️' : '🤍' }} {{ publicacion.likes.length }}
+    </button>
+  </div>
+</div>

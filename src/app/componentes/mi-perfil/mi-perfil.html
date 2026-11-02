@@ -1,1 +1,48 @@
-<p>mi-perfil works!</p>
+<!-- El sidebar a la izquierda -->
+<app-sidebar></app-sidebar>
+
+<!-- Contenedor principal que empujaremos hacia el centro -->
+<div class="perfil-container">
+  @if (usuario) {
+    <!-- Tarjeta de Datos de Usuario -->
+    <div class="perfil-header card">
+      <img [src]="usuario.imagenPerfilUrl" alt="Foto de perfil" class="avatar-large">
+      <div class="perfil-info">
+        <h2>{{ usuario.nombre }} {{ usuario.apellido }}</h2>
+        <span class="badge">&#64;{{ usuario.username }}</span>
+        
+        <div class="perfil-detalles">
+          <p><strong>Correo:</strong> {{ usuario.correo }}</p>
+          <p><strong>Nacimiento:</strong> {{ usuario.fechaNacimiento | date }}</p>
+          <p class="bio">{{ usuario.descripcion || 'Sin descripción' }}</p>
+        </div>
+      </div>
+    </div>
+    <!-- Sección Últimas 3 Publicaciones -->
+    <h3>Mis últimas publicaciones</h3>
+    <div class="mis-publicaciones">
+      @for (pub of ultimasPublicaciones(); track pub._id) {
+        <div class="post-card">
+          <small class="fecha">{{ pub.fecha | date:'medium' }}</small>
+          <p class="texto-pub">{{ pub.texto }}</p>
+          @if(pub.imagenUrl){          
+            <img [src]="pub.imagenUrl" alt="Foto de publicacon">
+          }
+          <div class="comentarios-seccion">
+            <h4>Comentarios ({{ pub.comentarios.length }})</h4>
+            @for (comentario of pub.comentarios; track comentario._id) {
+              <div class="comentario-item">
+                <strong>&#64;{{ comentario.usuario.username }}</strong>
+                <p>{{ comentario.texto }}</p>
+              </div>
+            } @empty {
+              <small>Nadie ha comentado esta publicación aún.</small>
+            }
+          </div>
+        </div>
+      } @empty {
+        <p>Aún no tienes publicaciones.</p>
+      }
+    </div>
+  }
+</div>

@@ -2,6 +2,7 @@ import { Component, inject } from '@angular/core';
 import { FormBuilder, FormGroup, Validators, AbstractControl, ValidationErrors, ReactiveFormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { HttpClient } from '@angular/common/http';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-registro',
@@ -12,6 +13,7 @@ import { HttpClient } from '@angular/common/http';
 export class Registro {
   private fb = inject(FormBuilder);
   private http = inject(HttpClient);
+  private router = inject(Router);
 
   private passwordPattern = /^(?=.*[A-Z])(?=.*\d).{8,}$/;
   
@@ -47,17 +49,6 @@ export class Registro {
 
   onSubmit() {
     if (this.registroForm.valid && this.archivoImagen) {
-      // const payload = {
-      //   ...this.registroForm.value,
-      //   imagenPerfil: this.archivoImagen // Se enviará vía FormData al backend o a Supabase Storage
-      // };
-      // //Cambiar el URL a el de vercel cuando ya este listo
-      // this.http.post('http://localhost:3000/auth/registro', payload)
-      // .subscribe({
-      //   next:(respuesta) => console.log('Registro Exitoso: ', respuesta),
-      //   error: (err) => console.log('Error en registro: ', err)
-      // });
-      // 1. Crear el FormData
       const formData = new FormData();
       
       // 2. Adjuntar los textos
@@ -74,7 +65,10 @@ export class Registro {
 
       this.http.post('http://localhost:3000/auth/registro', formData)
         .subscribe({
-          next: (respuesta) => console.log('Registro exitoso:', respuesta),
+          next: (respuesta) => {
+            console.log('Registro exitoso:', respuesta);
+            this.router.navigate(['login']);
+          },
           error: (err) => console.error('Error en registro:', err)
         });
     } else {

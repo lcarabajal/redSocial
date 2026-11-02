@@ -2,16 +2,18 @@ import { Component, inject } from '@angular/core';
 import { FormBuilder, FormGroup, Validators, ReactiveFormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { HttpClient } from '@angular/common/http';
+import { Router, RouterLink } from '@angular/router';
 
 @Component({
   selector: 'app-login',
   standalone: true,
-  imports: [ReactiveFormsModule, CommonModule],
+  imports: [ReactiveFormsModule, CommonModule, RouterLink],
   templateUrl: './login.html'
 })
 export class Login{
   private fb = inject(FormBuilder);
   private http = inject(HttpClient);
+  private router = inject(Router)
 
   // Regex: Al menos 8 caracteres, una mayúscula y un número
   private passwordPattern = /^(?=.*[A-Z])(?=.*\d).{8,}$/;
@@ -23,12 +25,20 @@ export class Login{
 
   onSubmit() {
     if (this.loginForm.valid) {
-      console.log('Datos de login:', this.loginForm.value);
       this.http.post('http://localhost:3000/auth/login', this.loginForm.value)
-      .subscribe({
-        next:(respuesta) => console.log('Login exitoso: ', respuesta),
-        error:(err) => console.error('Error en login: ', err)
-      });
+        .subscribe({
+          next: (respuesta: any) => {
+            // 1. Guardar todos los datos del usuario (incluyendo el _id) en el navegador
+            localStorage.setItem('usuario', JSON.stringify(respuesta));
+            
+            // 2. Redirigir al muro de publicaciones
+            this.router.navigate(['/publicaciones']);
+          },
+          error: (err) => {
+            console.error('Error en login:', err);
+            alert('Usuario o contraseña incorrectos');
+          }
+        });
     } else {
       this.loginForm.markAllAsTouched();
     }

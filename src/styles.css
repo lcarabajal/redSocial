@@ -143,3 +143,94 @@ label {
 input.input-error {
   border-color: #f87171;
 }
+
+.feed-container {
+  max-width: 600px; /* Limita el ancho del muro */
+  margin: 0 auto;   /* Lo centra en la pantalla */
+  padding: 2rem 1rem;
+}
+
+.feed-controls {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 2rem;
+}
+
+/* Evitar que el select sea enorme */
+.feed-controls select {
+  width: auto;
+  min-width: 150px;
+}
+
+.pagination {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 2rem;
+}
+
+/* Evitar botones de paginación gigantes */
+.pagination button {
+  width: auto;
+}
+/* Controles superiores del Feed */
+.feed-controls {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 2rem;
+}
+.feed-controls select { width: 200px; }
+
+/* Paginación */
+.pagination { display: flex; justify-content: space-between; align-items: center; margin-top: 2rem; }
+.pagination button { width: auto; }
+
+/* Avatares */
+.avatar-small { width: 40px; height: 40px; border-radius: 50%; object-fit: cover; border: 2px solid var(--primary-purple); }
+.avatar-large { width: 120px; height: 120px; border-radius: 50%; object-fit: cover; border: 4px solid var(--secondary-red); }
+
+/* Layout de cabeceras de post */
+.post-header {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  margin-bottom: 1rem;
+}
+.post-meta { display: flex; flex-direction: column; flex-grow: 1; }
+.post-meta small { color: var(--text-muted); }
+/* Cards globales para publicaciones y perfil */
+.post-card, .card {
+  background-color: var(--surface-dark);
+  border: 1px solid rgba(255, 255, 255, 0.05);
+  border-radius: 12px;
+  padding: 1.5rem;
+  margin-bottom: 1.5rem;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
+}
+
+
+
+/* Botones específicos */
+button.btn-like { background: transparent; border: 1px solid #334155; width: auto; color: var(--text-main); }
+button.btn-like.liked { border-color: var(--secondary-red); color: var(--secondary-red); }
+button.btn-delete { background: transparent; color: var(--error-text); width: auto; padding: 6px 12px; font-size: 12px; border: 1px solid var(--error-text); }
+button.btn-delete:hover { background: var(--error-text); color: white; }
+
+
+/* Comentarios en el perfil */
+.comentarios-seccion {
+  margin-top: 1rem;
+  padding-top: 1rem;
+  border-top: 1px solid #334155;
+}
+.comentario-item {
+  background: var(--bg-dark);
+  padding: 10px;
+  border-radius: 8px;
+  margin-bottom: 8px;
+  font-size: 0.9rem;
+}
+.comentario-item strong { color: var(--primary-purple); }
+
