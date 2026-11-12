@@ -28,8 +28,9 @@ export class Login{
       this.http.post('http://localhost:3000/auth/login', this.loginForm.value)
         .subscribe({
           next: (respuesta: any) => {
-            // 1. Guardar todos los datos del usuario (incluyendo el _id) en el navegador
-            localStorage.setItem('usuario', JSON.stringify(respuesta));
+            // 1. Guardar todos los datos del usuario (incluyendo el _id) en el navegador      
+            localStorage.setItem('token', respuesta.token); 
+            localStorage.setItem('usuario', JSON.stringify(respuesta.usuario));
             
             // 2. Redirigir al muro de publicaciones
             this.router.navigate(['/publicaciones']);

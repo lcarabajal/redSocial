@@ -234,3 +234,238 @@ button.btn-delete:hover { background: var(--error-text); color: white; }
 }
 .comentario-item strong { color: var(--primary-purple); }
 
+
+/* Contenedor principal para alinearlos en fila */
+.radio-group {
+  display: flex !important ;
+  flex-direction: row !important ; 
+  gap: 2rem !important ; 
+  margin: 1rem 0 1.5rem 0 !important ;
+}
+
+/* Alinea el círculo y el texto perfectamente en el centro */
+.radio-group label {
+  display: flex !important ;
+  align-items: center !important ;
+  gap: 0.5rem !important ; 
+  font-size: 0.9rem !important ;
+  color: #94a3b8 !important ; /* Mismo color de tus otros labels */
+  cursor: pointer !important ;
+}
+
+/* Oculta el diseño por defecto del navegador (los círculos blancos feos) */
+.radio-group input[type="radio"] {
+  appearance: none !important ;
+  -webkit-appearance: none !important ;
+  width: 20px !important ;
+  height: 20px !important ;
+  border: 1px solid rgba(255, 255, 255, 0.1) !important ; /* Mismo borde de tus inputs */
+  border-radius: 50% !important ;
+  background-color: rgba(0, 0, 0, 0.2) !important ; /* Mismo fondo oscuro de tus inputs */
+  cursor: pointer !important ;
+  display: flex !important ;
+  align-items: center !important ;
+  justify-content: center !important ;
+  transition: all 0.2s ease !important ;
+  margin: 0 !important ;
+}
+
+/* Efecto al pasar el mouse */
+.radio-group input[type="radio"]:hover {
+  border-color: #00d2ff !important ; /* El color cyan de tu título "Crear Nuevo Usuario" */
+}
+
+/* Estilo cuando está seleccionado */
+.radio-group input[type="radio"]:checked {
+  border-color: #00d2ff !important ;
+}
+
+/* El punto interior brillante cuando está activo */
+.radio-group input[type="radio"]:checked::after {
+  content: '' !important ;
+  width: 10px !important ;
+  height: 10px !important ;
+  background-color: #00d2ff !important ; 
+  border-radius: 50% !important ;
+  display: block !important ;
+}
+
+
+/* Contenedor de la tabla */
+.tabla-container {
+  background-color: var(--surface-dark, #1e293b);
+  border-radius: 12px;
+  padding: 2rem;
+  border: 1px solid rgba(255, 255, 255, 0.05);
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
+}
+
+/* Título de la tabla */
+.tabla-container h3 {
+  color: #00d2ff; /* Cyan para mantener consistencia con tu formulario */
+  margin-top: 0;
+  margin-bottom: 1.5rem;
+  font-size: 1.5rem;
+}
+
+/* Estructura base de la tabla */
+.tabla-container table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+/* Encabezados de las columnas */
+.tabla-container th {
+  text-align: left;
+  text-transform: uppercase;
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: #94a3b8; /* Gris claro para diferenciar del contenido */
+  padding: 1rem 0.5rem;
+  border-bottom: 2px solid rgba(255, 255, 255, 0.1);
+}
+
+/* Celdas de información */
+.tabla-container td {
+  padding: 1rem 0.5rem;
+  color: #f8fafc; /* Texto blanco brillante para máxima legibilidad */
+  border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+  vertical-align: middle;
+}
+
+/* Efecto visual al pasar el mouse sobre una fila completa */
+.tabla-container tbody tr {
+  transition: background-color 0.2s ease;
+}
+
+.tabla-container tbody tr:hover {
+  background-color: rgba(255, 255, 255, 0.03); /* Iluminación sutil */
+}
+
+/* Ajustes para el botón de Alta/Baja */
+.tabla-container td button {
+  font-size: 0.85rem;
+  font-weight: 600;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+  transition: all 0.2s ease;
+  min-width: 100px;
+}
+
+.tabla-container td button:hover {
+  filter: brightness(1.1);
+  transform: translateY(-1px);
+}
+
+.tabla-container td button:active {
+  transform: translateY(1px);
+}
+
+/* Contenedor principal */
+.dashboard-container {
+  padding: 1rem;
+  color: #f8fafc;
+}
+
+.dashboard-container h2 {
+  color: #00d2ff;
+  margin-bottom: 2rem;
+}
+
+/* -------------------------------------
+   TARJETA DE FILTROS (Fechas)
+-------------------------------------- */
+.filtros-card {
+  background-color: var(--surface-dark, #1e293b);
+  border: 1px solid rgba(255, 255, 255, 0.05);
+  border-radius: 12px;
+  padding: 1.5rem;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1.5rem;
+  align-items: center;
+  margin-bottom: 2rem;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
+}
+
+.filtros-card label {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  color: #94a3b8;
+  font-weight: 500;
+}
+
+/* Estilo para los inputs de fecha (modo oscuro) */
+.filtros-card input[type="date"] {
+  background-color: rgba(0, 0, 0, 0.2);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  color: #f8fafc;
+  padding: 0.6rem 1rem;
+  border-radius: 8px;
+  outline: none;
+  font-family: inherit;
+  transition: border-color 0.2s;
+  /* color-scheme le avisa al navegador que abra el calendario en modo oscuro */
+  color-scheme: dark; 
+}
+
+.filtros-card input[type="date"]:focus {
+  border-color: #00d2ff;
+}
+
+/* Botón de actualizar */
+.filtros-card button {
+  background: linear-gradient(to right, #b026ff, #ff26a5); /* Similar a tu botón de registro */
+  color: white;
+  border: none;
+  padding: 0.7rem 1.5rem;
+  border-radius: 8px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  margin-left: auto; /* Empuja el botón a la derecha */
+}
+
+.filtros-card button:hover {
+  filter: brightness(1.15);
+  transform: translateY(-2px);
+}
+
+/* -------------------------------------
+   GRILLA DE GRÁFICOS
+-------------------------------------- */
+.graficos-grid {
+  display: grid;
+  /* Crea columnas responsivas que no sean menores a 350px */
+  grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+  gap: 2rem;
+}
+
+/* Cajas individuales de cada gráfico */
+.grafico-box {
+  background-color: var(--surface-dark, #1e293b);
+  border: 1px solid rgba(255, 255, 255, 0.05);
+  border-radius: 12px;
+  padding: 1.5rem;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.grafico-box h3 {
+  color: #94a3b8;
+  font-size: 1.1rem;
+  margin-top: 0;
+  margin-bottom: 1.5rem;
+  text-align: center;
+  width: 100%;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+  padding-bottom: 1rem;
+}
+
+/* Control vital para Chart.js */
+.grafico-box canvas {
+  width: 100% !important;
+  max-height: 300px; /* Evita que los gráficos crezcan infinitamente hacia abajo */
+}

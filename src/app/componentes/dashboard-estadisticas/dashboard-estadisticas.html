@@ -1,0 +1,28 @@
+<div class="dashboard-container">
+  <h2>Estadísticas del Sistema</h2>
+
+  <!-- Filtro de Lapso de Tiempo -->
+  <div class="filtros-card">
+    <label>Desde: <input type="date" [(ngModel)]="fechaInicio"></label>
+    <label>Hasta: <input type="date" [(ngModel)]="fechaFin"></label>
+    <button (click)="cargarEstadisticas()">Actualizar Gráficos</button>
+  </div>
+
+  <!-- Contenedores de los Gráficos -->
+  <div class="graficos-grid">
+    <div class="grafico-box">
+      <h3>Publicaciones por Usuario</h3>
+      <canvas id="chartBarras"></canvas>
+    </div>
+    
+    <div class="grafico-box">
+      <h3>Comentarios en el Tiempo</h3>
+      <canvas id="chartLineas"></canvas>
+    </div>
+
+    <div class="grafico-box">
+      <h3>Comentarios por Publicación</h3>
+      <canvas id="chartTorta"></canvas>
+    </div>
+  </div>
+</div>

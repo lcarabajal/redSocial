@@ -4,11 +4,12 @@ import { Publicacion} from '../publicacion/publicacion';
 import { IPublicacion } from '../../interfaces/interfaces';
 import { HttpClient } from '@angular/common/http';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
+import { Sidebar } from '../sidebar/sidebar';
 
 @Component({
   selector: 'app-publicaciones',
   standalone: true,
-  imports: [CommonModule, Publicacion, ReactiveFormsModule],
+  imports: [CommonModule, Publicacion, ReactiveFormsModule, Sidebar],
   templateUrl: './publicaciones.html',
   styleUrls: ['./publicaciones.css']
 })
@@ -24,7 +25,7 @@ export class Publicaciones implements OnInit {
   
   // Paginación y Ordenamiento
   paginaActual: number = 1;
-  limite: number = 10;
+  limite: number = 2;
   orden: 'fecha' | 'likes' = 'fecha';
 
   nuevaPubForm: FormGroup = this.fb.group({
@@ -68,7 +69,7 @@ export class Publicaciones implements OnInit {
     const pub = this.publicaciones().find(p => p._id === idPublicacion);
     if (pub) {
       const index = pub.likes.indexOf(this.currentUserId);
-      if (index === -1) pub.likes.push(this.currentUserId);
+      if (index === -1) pub.likes.push(this.currentUserId); //Si no esta en el array de likes, Lo meto dentro
       else pub.likes.splice(index, 1);
     }
 

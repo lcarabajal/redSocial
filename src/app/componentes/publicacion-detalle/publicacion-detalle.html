@@ -1,0 +1,80 @@
+<app-sidebar></app-sidebar>
+<div class="detalle-container">
+  <!-- Publicación Grande -->
+  @if (publicacion()) {
+    <div class="post-card grande">
+      <div class="post-header">
+        <div class="post-meta">
+            <img [src]="publicacion().usuario.imagenPerfilUrl" class="avatar-large">
+            <br>
+            <h2>&#64;{{ publicacion().usuario.username }}</h2>
+            <small>{{ publicacion().createdAt | date:'medium' }}</small>
+        </div>
+      </div>
+
+      
+      <p class="texto-grande">{{ publicacion().texto }}</p>
+      @if (publicacion().imagenUrl) {
+        <img [src]="publicacion().imagenUrl" class="post-imagen">
+      }
+
+
+      
+      @if (esAdmin) {
+        <div class="boton">
+          <button 
+            class="btn-peligro" 
+            style="margin-left: auto; background: red; color: white; border: none; padding: 5px 10px; border-radius: 5px; cursor: pointer;"
+            (click)="darDeBajaPublicacion(publicacion()._id)">
+            Dar de baja
+          </button>
+        </div>
+      }
+    </div>
+  }
+  
+  <!-- Lista de Comentarios Ordenados -->
+  <div class="lista-comentarios">
+    <h3>Comentarios ({{ comentarios().length }})</h3>
+    
+    @for (comentario of comentarios(); track comentario._id) {
+      <div class="comentario-item card">
+        <div class="com-header">
+          <img [src]="comentario.usuario.imagenPerfilUrl" class="avatar-large">
+          <strong>&#64;{{ comentario.usuario.username }}</strong>
+          <small>{{ comentario.fecha | date:'short' }}</small>
+          @if (comentario.modificado) { <span class="badge-editado">(Editado)</span> }
+          
+
+          <!-- Botón editar -->
+          @if (comentario.usuario._id === currentUserId && comentarioEnEdicionId() !== comentario._id) {
+            <button class="btn-texto" (click)="iniciarEdicion(comentario)">Editar</button>
+          }
+        </div>
+
+        <!-- Modo lectura vs Modo edición -->
+        @if (comentarioEnEdicionId() === comentario._id) {
+          <div class="modo-edicion">
+            <!-- Usamos enlace bidireccional seguro para signals con ngModel -->
+            <input 
+              type="text" 
+              [ngModel]="textoEdicion()" 
+              (ngModelChange)="textoEdicion.set($event)" 
+              class="input-edicion"
+            >
+            <button (click)="guardarEdicion(comentario._id)">Guardar</button>
+            <button class="btn-cancelar" (click)="comentarioEnEdicionId.set(null)">Cancelar</button>
+          </div>
+        } @else {
+          <p>{{ comentario.texto }}</p>
+        }
+      </div>
+    }
+  </div>
+  
+    <!-- Escribir Comentario -->
+    <form [formGroup]="comentarioForm" (ngSubmit)="escribirComentario()">
+        <textarea formControlName="texto" placeholder="Escribe un comentario..."></textarea>
+        <button type="submit" [disabled]="comentarioForm.invalid">Comentar</button>
+    </form>
+</div>

@@ -1,0 +1,124 @@
+/* =========================================
+   1. PANTALLA DE CARGA Y SPINNER
+   ========================================= */
+.pantalla-cargando {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background-color: #0f172a; /* Fondo oscuro principal */
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  z-index: 9999; /* Por encima de todo */
+  color: #f8fafc;
+}
+
+.pantalla-cargando p {
+  margin-top: 1.5rem;
+  font-size: 1.2rem;
+  font-weight: 500;
+  color: #cbd5e1;
+}
+
+.spinner {
+  width: 60px;
+  height: 60px;
+  border: 6px solid rgba(255, 255, 255, 0.1);
+  border-top-color: var(--primary-purple, #7c3aed);
+  border-radius: 50%;
+  animation: girar 1s linear infinite;
+}
+
+@keyframes girar {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+/* =========================================
+   2. ESTRUCTURA PRINCIPAL (LAYOUT)
+   ========================================= */
+.app-layout {
+  display: flex;
+  min-height: 100vh;
+  width: 100%;
+}
+
+.main-content {
+  /* Si el sidebar no está presente (ej. login), este margen no aplica 
+     gracias a que el enrutador gestiona las vistas de forma independiente. 
+     Pero cuando el sidebar de 80px sí está fijo, el contenido debe saltarlo */
+  flex-grow: 1;
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+}
+
+/* =========================================
+   3. MODAL DE SESIÓN (Quedan 5 min)
+   ========================================= */
+.modal-backdrop {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background-color: rgba(0, 0, 0, 0.8);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 10000; /* Por encima de la navegación */
+  backdrop-filter: blur(4px);
+}
+
+.modal-content.card {
+  background-color: var(--surface-dark, #1e293b);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 12px;
+  padding: 2.5rem;
+  width: 90%;
+  max-width: 450px;
+  text-align: center;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.5);
+  color: white;
+}
+
+.modal-content h3 {
+  color: #fca5a5; /* Rojo claro para alertar */
+  margin-bottom: 1rem;
+  font-size: 1.4rem;
+}
+
+.modal-content p {
+  color: #cbd5e1;
+  margin-bottom: 2rem;
+  font-size: 1.1rem;
+}
+
+.acciones-form {
+  display: flex;
+  justify-content: space-between;
+  gap: 1rem;
+}
+
+.acciones-form button {
+  flex: 1;
+  padding: 10px;
+  font-size: 1rem;
+  border-radius: 8px;
+}
+
+.btn-cancelar {
+  background-color: transparent;
+  border: 1px solid #64748b;
+  color: #cbd5e1;
+  transition: all 0.2s;
+}
+
+.btn-cancelar:hover {
+  background-color: rgba(255, 255, 255, 0.1);
+  color: white;
+}

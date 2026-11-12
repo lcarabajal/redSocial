@@ -1,1 +1,27 @@
-<router-outlet />
+<!-- Pantalla de Carga -->
+@if (isAppLoading()) {
+  <div class="pantalla-cargando">
+    <div class="spinner"></div>
+    <p>Cargando aplicación...</p>
+  </div>
+} 
+
+<div class="app-layout">
+    <main class="main-content">
+      <router-outlet></router-outlet>
+    </main>
+</div>
+
+<!-- Modal de Sesión (Quedan 5 min) -->
+@if (mostrarModalSesion()) {
+  <div class="modal-backdrop">
+    <div class="modal-content card">
+      <h3>⚠️ Tu sesión está por expirar</h3>
+      <p>Quedan 5 minutos de sesión. ¿Deseas extenderla?</p>
+      <div class="acciones-form">
+        <button class="btn-cancelar" (click)="cerrarSesion()">Cerrar sesión</button>
+        <button (click)="extenderSesion()">Sí, extender</button>
+      </div>
+    </div>
+  </div>
+}

@@ -1,4 +1,4 @@
-
+<app-sidebar></app-sidebar>
 <div class="feed-container">
   <h2>Inicio</h2>
   <div class="feed-controls">
@@ -19,10 +19,11 @@
           <textarea formControlName="texto" placeholder="¿Qué estás pensando?"></textarea>
           
           <input type="file" accept="image/*" (change)="onFileSelected($event)">
-          
+          <br>
           <div class="acciones-form">
-            <button type="button" class="btn-cancelar" (click)="cerrarModal()">Cancelar</button>
+            <br>
             <button type="submit" [disabled]="nuevaPubForm.invalid">Publicar</button>
+            <button type="button" class="btn-cancelar" (click)="cerrarModal()">Cancelar</button>
           </div>
         </form>
       </div>

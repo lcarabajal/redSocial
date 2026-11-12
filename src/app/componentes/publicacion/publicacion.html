@@ -26,5 +26,8 @@
     <button class="btn-like" [class.liked]="hasLiked" (click)="toggleLike()">
       {{ hasLiked ? '❤️' : '🤍' }} {{ publicacion.likes.length }}
     </button>
+
+    <button class="btn-like" [routerLink]="['/publicaciones', publicacion._id]">💬 </button>
+    
   </div>
 </div>

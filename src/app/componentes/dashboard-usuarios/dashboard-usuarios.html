@@ -1,0 +1,144 @@
+<div class="registro-container">
+  <h2>Gestión de Usuarios</h2>
+
+  <!-- Formulario de Creación -->
+  <div class="form-container">
+    <form [formGroup]="usuarioForm" (ngSubmit)="crearUsuario()">
+        <div class="row-inputs">
+        <div>
+            <label>Nombre</label>
+            <input type="text" formControlName="nombre" placeholder="Tu nombre"
+            [class.input-error]="esCampoInvalido('nombre')">
+            @if (esCampoInvalido('nombre')) {
+            <small>El nombre es obligatorio.</small>
+            }
+        </div>
+        <div>
+            <label>Apellido</label>
+            <input type="text" formControlName="apellido" placeholder="Tu apellido"
+            [class.input-error]="esCampoInvalido('apellido')">
+            @if (esCampoInvalido('apellido')) {
+            <small>El apellido es obligatorio.</small>
+            }
+        </div>
+        </div>
+
+        <div>
+        <label>Correo electrónico</label>
+        <input type="email" formControlName="correo" placeholder="ejemplo@correo.com"
+        [class.input-error]="esCampoInvalido('correo')">
+        @if (esCampoInvalido('correo')) {
+            <small>Ingrese un correo válido.</small>
+        }
+        </div>
+
+        <div>
+        <label>Nombre de usuario</label>
+        <input type="text" formControlName="username" placeholder="Usuario"
+        [class.input-error]="esCampoInvalido('username')">
+        @if (esCampoInvalido('username')) {
+            <small>El nombre de usuario es obligatorio.</small>
+        }
+        </div>
+
+        <div>
+        <label>Contraseña</label>
+        <input type="password" formControlName="password" placeholder="Contraseña"
+        [class.input-error]="esCampoInvalido('password')">
+        @if (esCampoInvalido('password')) {
+            <small>La contraseña es obligatoria.</small>
+        }
+        @if (campo['password'].touched && campo['password'].errors?.['pattern']) {
+            <small>Debe tener 8 caracteres, 1 mayúscula y 1 número.</small>
+        }
+        </div>
+        
+        <div>
+        <label>Repetir contraseña</label>
+        <input type="password" formControlName="repetirPassword" placeholder="Repetir contraseña"
+        [class.input-error]="usuarioForm.errors?.['mismatch'] && campo['repetirPassword'].touched">
+        @if (usuarioForm.errors?.['mismatch'] && campo['repetirPassword'].touched) {
+            <small>Las contraseñas no coinciden.</small>
+        }
+        </div>
+
+        <div>
+        <label>Fecha de nacimiento</label>
+        <input type="date" formControlName="fechaNacimiento"
+        [class.input-error]="esCampoInvalido('fechaNacimiento')">
+        @if (esCampoInvalido('fechaNacimiento')) {
+            <small>La fecha de nacimiento es obligatoria.</small>
+        }
+        </div>
+
+        <div>
+        <label>Descripción breve</label>
+        <textarea formControlName="descripcion" placeholder="Cuéntanos un poco sobre ti..."></textarea>
+        </div>
+
+        <br>
+
+        <div class="radio-group">
+        <label>
+            <input type="radio" formControlName="perfil" value="usuario"> 
+            Usuario Normal
+        </label>
+        <label>
+            <input type="radio" formControlName="perfil" value="admin"> 
+            Administrador
+        </label>
+        </div>
+
+        <br>
+
+        <div>
+        <label>Imagen de perfil</label>
+        <input type="file" accept="image/*" (change)="onFileSelected($event)">
+        @if (!archivoImagen && usuarioForm.touched) {
+            <small>La imagen de perfil es obligatoria.</small>
+        }
+        </div>
+
+        <button type="submit">Registrarse</button>
+    </form>
+  </div>
+
+  <!-- Tabla de Listado -->
+  <div class="tabla-container" style="margin-top: 2rem;">
+    <h3>Listado de Usuarios</h3>
+    <table style="width: 100%; text-align: left;">
+      <thead>
+        <tr>
+          <th>Usuario</th>
+          <th>Correo</th>
+          <th>perfil</th>
+          <th>Estado</th>
+          <th>Acciones</th>
+        </tr>
+      </thead>
+      <tbody>
+        @for (u of usuarios(); track u._id) {
+          <tr>
+            <td>{{ u.username }}</td>
+            <td>{{ u.correo }}</td>
+            <td>{{ u.perfil | uppercase }}</td>
+            <td>
+              <span [style.color]="u.activo ? 'green' : 'red'">
+                {{ u.activo ? 'Habilitado' : 'Deshabilitado' }}
+              </span>
+            </td>
+            <td>
+              <!-- Botón dinámico de Alta/Baja -->
+              <button 
+                (click)="cambiarEstado(u)"
+                [style.background]="u.activo ? '#dc2626' : '#16a34a'"
+                style="color: white; border: none; padding: 5px 10px; border-radius: 4px; cursor: pointer;">
+                {{ u.activo ? 'Deshabilitar' : 'Habilitar' }}
+              </button>
+            </td>
+          </tr>
+        }
+      </tbody>
+    </table>
+  </div>
+</div>
