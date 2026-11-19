@@ -84,19 +84,6 @@ export class PublicacionDetalle implements OnInit {
           this.totalComentarios.set(res.total);
           this.totalPaginas.set(Math.max(1, res.totalPaginas));
           this.cargando.set(false);
-          // this.comentarios.update((actuales) => {
-            // if (pagina === 1) return res.comentarios;
-
-            // Evita duplicados en @for si se agregó un comentario nuevo mientras se paginaba
-            // const idsExistentes = new Set(actuales.map((c) => c._id));
-            // const nuevos = res.comentarios.filter((c) => !idsExistentes.has(c._id));
-            // return [...actuales, ...nuevos];
-          // });
-
-          // this.totalComentarios.set(res.total);
-          // this.paginaActual.set(res.paginaActual);
-          // this.hayMas.set(res.hayMas);
-          // this.cargandoComentarios.set(false);
 
           console.log(this.comentarios());
         },
@@ -145,12 +132,6 @@ export class PublicacionDetalle implements OnInit {
     });
   }
 
-  // cargarMas() {
-  //   if (this.hayMas()) {
-  //     this.cargarComentarios(this.paginaActual() + 1);
-  //   }
-  // }
-
   escribirComentario() {
     if (this.comentarioForm.invalid) return;
     const payload = { 
@@ -163,9 +144,7 @@ export class PublicacionDetalle implements OnInit {
 
     this.http.post(`https://red-social-back-end.vercel.app/publicaciones/${pub._id}/comentarios`, payload).subscribe({
       next: (nuevoComentario) => {
-        // Agregamos el nuevo comentario al inicio de la lista
-        this.comentarios.update(actuales => [nuevoComentario, ...actuales]);
-        this.comentarioForm.reset();
+        this.onComentarioCreado(nuevoComentario);
       }
     });
   }
